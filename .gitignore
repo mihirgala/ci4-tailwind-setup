@@ -1,0 +1,41 @@
+# CodeIgniter 4 gitignore
+/vendor/
+/writable/*
+!/writable/index.html
+!/writable/.htaccess
+
+# Environment files
+.env
+.env.test
+.env.development
+.env.production
+
+# Node dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.phpunit.result.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Documentation
+/user_guide_src/
+/public/user_guide/
+

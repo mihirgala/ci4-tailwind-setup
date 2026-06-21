@@ -1,4 +1,4 @@
-<? $appname = "MyApp" ?>
+<?php $appname = "MyApp" ?>
 <!DOCTYPE html>
 <html>
 
@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="/css/output.css">
 </head>
 
-<body>
+<body class="h-screen flex flex-col overflow-hidden">
     <?= $this->include('partials/navbar') ?>
 
-    <main class="min-h-screen w-full flex flex-col">
+    <main class="flex-1 flex flex-col min-h-0">
         <?= $this->renderSection('content') ?>
     </main>
 

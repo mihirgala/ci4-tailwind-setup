@@ -1,110 +1,88 @@
-# 🚀 CodeIgniter 4 + Tailwind CSS 4 Starter
+# ci4-tailwind-setup
 
-A premium, high-performance starter template combining the robustness of **CodeIgniter 4** with the modern utility-first power of **Tailwind CSS 4**. This setup is designed for building fast, data-driven web applications with smooth animations and a modular architecture.
+> A production-ready boilerplate combining **CodeIgniter 4** with **Tailwind CSS 4**. Modular view architecture, GSAP-ready animations, and a streamlined dev workflow.
 
----
-
-## ✨ Key Features
-
-- **⚡ CodeIgniter 4.x**: The light, fast, and secure PHP full-stack framework.
-- **🎨 Tailwind CSS 4**: Utilizing the latest CSS-first configuration and high-performance JIT engine.
-- **🎭 GSAP Ready**: Integrated support for high-end scroll-triggered animations and interactive UI components.
-- **🧱 Modular Components**: Reusable PHP view components powered by configuration arrays for easy maintenance.
-- **📱 Responsive by Design**: Mobile-first layouts with specialized behaviors for different viewports (e.g., marquees on mobile vs. sliders on desktop).
-- **🔧 Modern Workflow**: Optimized `npm` scripts for Tailwind watching and PHP server management.
-
----
-
-## 🛠️ Tech Stack
-
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![CodeIgniter](https://img.shields.io/badge/CodeIgniter-EF4223?style=for-the-badge&logo=codeigniter&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- PHP 8.2+ (with `intl`, `mbstring`, `json`, `mysqlnd`, `curl` extensions)
-- Composer
-- Node.js & npm
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd ci4-tailwind-setup
-   ```
-
-2. **Install PHP dependencies:**
-   ```bash
-   composer install
-   ```
-
-3. **Install Node dependencies:**
-   ```bash
-   npm install
-   ```
-
-4. **Environment Setup:**
-   Copy `.env.example` to `.env` and configure your database and base URL.
-   ```bash
-   cp .env.example .env
-   ```
-
----
-
-## 💻 Development Workflow
-
-To start development, you need two terminal windows running:
-
-### 1. Watch Tailwind CSS
-This command will watch for changes in your PHP views and recompile the CSS.
 ```bash
+# Quick start
+git clone https://github.com/mihirgala/ci4-tailwind-setup.git
+cd ci4-tailwind-setup
+composer install && npm install
+cp .env.example .env
+```
+
+---
+
+## Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | PHP 8.2+ / CodeIgniter 4.x |
+| **Frontend** | Tailwind CSS 4 |
+| **Animations** | GSAP (GreenSock) |
+| **Build** | Tailwind CLI via npm |
+
+---
+
+## Development
+
+Open **two terminals**:
+
+```bash
+# Terminal 1 — Watch Tailwind for changes
 npm run dev
-```
 
-### 2. Start PHP Server
-This will serve the application at `http://localhost:8080`.
-```bash
-npm run php
-# or
+# Terminal 2 — Start PHP dev server
 php spark serve
+# → http://localhost:8080
 ```
 
-### Build for Production
-To minify and optimize your CSS for production:
+### Production build
+
 ```bash
 npm run build
 ```
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
-- `app/Controllers/`: Application logic and data preparation.
-- `app/Views/`: PHP views and reusable partials.
-- `assets/css/input.css`: Main Tailwind entry point.
-- `public/css/output.css`: Compiled CSS (automatically generated).
-- `public/js/`: Client-side JavaScript and GSAP logic.
+```
+.
+├── app/
+│   ├── Controllers/        # Application logic
+│   ├── Views/
+│   │   ├── layouts/        # Base layout (main.php)
+│   │   ├── pages/          # Page templates
+│   │   ├── partials/       # Reusable partials (navbar, footer)
+│   │   └── sections/       # Reusable sections (hero, etc.)
+│   └── ...
+├── assets/
+│   └── css/input.css       # Tailwind entry point
+├── public/
+│   ├── css/output.css      # Compiled CSS (auto-generated)
+│   └── js/                 # Client-side JS / GSAP
+├── package.json
+└── composer.json
+```
 
 ---
 
-## 🛡️ Security
+## Features
 
-This project follows CI4 best practices. The `index.php` is located in the `public/` directory to prevent unauthorized access to system files. Ensure your web server points to the `public/` folder as the document root.
-
----
-
-## 📄 License
-
-Distributed under the ISC License. See `LICENSE` for more information.
+- **CodeIgniter 4.x** — Light, fast, secure PHP framework with DB abstraction, validation, caching
+- **Tailwind CSS 4** — CSS-first config, JIT engine, fully responsive
+- **GSAP Ready** — Scroll-triggered animations and interactive components
+- **Modular Views** — Layouts, pages, partials, and sections powered by config arrays
+- **Dev Workflow** — Single `npm run dev` command watches and recompiles Tailwind
 
 ---
 
-<p align="center">Built with ❤️ for modern web development.</p>
+## Security
+
+Document root must point to `public/`. The `index.php` front controller lives there to prevent direct access to system files, following CI4 best practices.
+
+---
+
+## License
+
+ISC — see [LICENSE](LICENSE).

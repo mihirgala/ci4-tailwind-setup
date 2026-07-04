@@ -15,7 +15,7 @@
 <body class="h-screen flex flex-col overflow-hidden">
     <?= $this->include('partials/navbar') ?>
 
-    <main class="flex-1 flex flex-col min-h-0">
+    <main class="flex-1 flex flex-col min-h-screen">
         <?= $this->renderSection('content') ?>
     </main>
 

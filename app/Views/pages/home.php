@@ -1,7 +1,7 @@
-<?= $this->extend('/layouts/main') ?>
+<?= $this->extend('layouts/main') ?>
 
 <?= $this->section('content') ?>
-<main>
+<div>
     this is home page
-</main>
+</div>
 <?= $this->endSection() ?>

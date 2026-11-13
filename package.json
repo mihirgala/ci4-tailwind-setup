@@ -1,21 +1,29 @@
 {
-  "name": "Ci4-Template",
+  "name": "ci4-tailwind-setup",
   "version": "1.0.0",
-  "description": "CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure. More information can be found at the [official site](https://codeigniter.com).",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
+  "private": true,
+  "description": "CodeIgniter 4 + Tailwind CSS 4 starter with modular PHP views, a development workspace, and agent skills.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "php -r \"file_exists('.env')||copy('.env.example','.env');\"",
     "dev": "tailwindcss -i ./assets/css/input.css -o ./public/css/output.css --watch",
     "build": "tailwindcss -i ./assets/css/input.css -o ./public/css/output.css --minify",
-    "php": "php spark serve"
+    "php": "php spark serve",
+    "lint": "php scripts/lint.php",
+    "check": "php scripts/lint.php && pnpm build",
+    "prepare": "git config core.hooksPath .githooks"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "codeigniter",
+    "tailwindcss",
+    "php",
+    "starter"
+  ],
+  "author": "Mihir Gala",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihirgala/ci4-tailwind-setup.git"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.2.4",
     "tailwindcss": "^4.2.4"

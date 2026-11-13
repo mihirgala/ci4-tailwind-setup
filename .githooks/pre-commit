@@ -1,0 +1,7 @@
+#!/bin/sh
+# Rebuild CSS and stage it, only when Tailwind inputs changed in this commit.
+# Keeps public/css/output.css in sync without a separate "rebuild css" commit.
+if git diff --cached --name-only | grep -qE '^(app/Views/|assets/css/)'; then
+    pnpm build >/dev/null 2>&1 || { echo "pnpm build failed; commit aborted"; exit 1; }
+    git add public/css/output.css
+fi

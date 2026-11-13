@@ -3,14 +3,15 @@
 ## Project and priorities
 
 - Framework: CodeIgniter 4; templating: PHP views; styling: Tailwind CSS 4.
-- Prefer vanilla JavaScript and CSS. Add a library only for a concrete requirement.
+- **Tailwind utilities first.** Style with utility classes in the markup. Write custom CSS only when utilities cannot express it (keyframes, third-party markup, complex selectors). Never write vanilla CSS for spacing, color, typography, layout, or states. Use theme tokens from `assets/css/input.css` (`@theme`) instead of hard-coded values.
+- Prefer vanilla JavaScript. Add a library only for a concrete requirement.
 - Preserve design hierarchy and interactions while adapting naturally across viewport widths and heights.
 - Prioritize semantic HTML, natural flow, flex/grid, reuse, accessibility, maintainability, and performance.
 - Figma is a design reference and asset/content source, not production code or a pixel-coordinate specification.
 
 ## Load task-specific skills
 
-Skills live in `.opencode/skills/<name>/SKILL.md`. Load the matching skill before relevant work; if the skill tool cannot discover it, read its file directly. All repository paths in skills are relative to the project root.
+Skills live in `.claude/skills/<name>/SKILL.md` (read by Claude Code and OpenCode). Load the matching skill before relevant work; if the skill tool cannot discover it, read its file directly. All repository paths in skills are relative to the project root.
 
 | Task | Skill |
 | --- | --- |
@@ -30,14 +31,15 @@ Load multiple skills when responsibilities overlap. For a Figma section, use the
 | `app/Views/pages/` | Compose page sections and partials |
 | `app/Views/sections/<page>/` | Meaningful page-level visual blocks |
 | `app/Views/partials/` | Shared UI such as navigation and footer |
-| `app/Views/Components/` | Reusable prop-driven components |
+| `app/Views/components/` | Reusable prop-driven components (lowercase path) |
+| `app/Views/dev/` | Development workspace views (`pages`, `sections`, `partials`) |
 | `app/Config/Development.php` | Development page inventory, milestones, references, gallery, and section progress |
 | `assets/css/input.css` | Tailwind source, theme, genuinely shared styles |
 | `public/css/output.css` | Generated CSS; build it rather than editing it |
-| `assets/js/script.js` | Shared JavaScript source when needed; publish it under `public/` before including it |
+| `public/js/script.js` | Shared JavaScript (no bundler); include with `base_url('js/script.js')` |
 | `public/images/` | Meaningfully named, logically organized image assets when needed |
 
-Read `docs/components.md` and `app/Helpers/component_helper.php` before duplicating UI. Use `component('Components/…', $props)` for reusable pieces; its renderer isolates props from page data. Match path casing exactly for Linux deployments.
+Read `docs/components.md` and `app/Helpers/component_helper.php` before duplicating UI. Use `component('components/…', $props)` for reusable pieces; its renderer isolates props from page data. Match path casing exactly for Linux deployments.
 
 Make repeated markup data-driven with PHP arrays and `foreach`. Keep page-specific markup, styles, and behavior in their relevant views. Shared CSS belongs in `assets/css/input.css`; small view-owned `<style>` and `<script>` blocks belong with the view. Never expose source directories through the document root.
 
@@ -66,10 +68,10 @@ Make repeated markup data-driven with PHP arrays and `foreach`. Keep page-specif
 ## Verification
 
 - Lint changed PHP with `php -l <file>`.
-- Run `pnpm build` for Tailwind source or view-class changes; `pnpm dev` watches styles. The npm script equivalents also work.
+- Run `pnpm check` (PHP lint + build) before finishing. `public/css/output.css` is committed on purpose: the production server has no Node, so a git pre-commit hook (`.githooks/`, enabled by `pnpm install`) rebuilds and stages it automatically when views or CSS change, so no separate commit is needed. Run `pnpm build` for Tailwind source or view-class changes; `pnpm dev` watches styles. The npm script equivalents also work.
 - Use `responsive-qa` for the full viewport matrix, short/tall checks, full-page scroll, keyboard/interaction checks, and console/asset errors.
 - Check affected public routes and relevant development previews. Shared components require gallery-variant and actual public-usage checks; tracking changes require counts, references, empty states, and directory navigation checks.
 - Confirm development routes return 404 outside development after routing/controller changes.
-- Report checks actually performed and blockers accurately. Restart OpenCode after changing skills so future sessions discover the new guidance.
+- Report checks actually performed and blockers accurately. Restart the agent session after changing skills so it discovers the new guidance.
 
 **Final principle: preserve design intent, not Figma coordinates.**

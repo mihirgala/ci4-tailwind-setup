@@ -11,8 +11,8 @@ Repository paths are relative to the project root. Load `responsive-layout` for 
 
 1. Read affected views, callers, controllers, and relevant assets.
 2. Read `docs/components.md` and `app/Helpers/component_helper.php` before duplicating UI.
-3. Inspect `app/Views/Components/` and variants at `/dev-design-components` in development.
-4. Reuse `component('Components/…', $props)`. This helper uses a fresh renderer so component props cannot overwrite page/layout data or inherit unintended page variables.
+3. Inspect `app/Views/components/` and variants at `/dev-design-components` in development.
+4. Reuse `component('components/…', $props)`. This helper uses a fresh renderer so component props cannot overwrite page/layout data or inherit unintended page variables.
 5. Match existing names and path casing; a Windows-only casing mismatch can fail on Linux.
 
 ## View ownership
@@ -23,7 +23,7 @@ Repository paths are relative to the project root. Load `responsive-layout` for 
 | `app/Views/pages/` | Page composition |
 | `app/Views/sections/<page>/` | Meaningful page-level visual blocks |
 | `app/Views/partials/` | Shared navigation, footer, and other shared markup |
-| `app/Views/Components/` | Reusable prop-driven pieces |
+| `app/Views/components/` | Reusable prop-driven pieces |
 
 Compose sections with `$this->include('sections/…')`. Do not put page-specific markup into a global layout or implement a large page as one monolithic view. The layout owns `<main>`; do not nest another main element in a page.
 
@@ -40,12 +40,12 @@ Finished sections must be included in the actual public page. Gallery availabili
 
 ## Styles and scripts
 
-- Prefer standard Tailwind utilities; arbitrary values need a genuine design-specific reason.
+- Tailwind utilities first. Do not write vanilla CSS for layout, spacing, color, typography, or states. Arbitrary values need a genuine design-specific reason; prefer `@theme` tokens.
 - Edit `assets/css/input.css`, not generated `public/css/output.css`. Run `pnpm build` after CSS or class changes.
-- Keep theme variables and genuinely shared styles in global CSS. Small view-specific `<style>` blocks may live in their owning view.
-- Shared JavaScript source may live in `assets/js/script.js` when needed. The starter has no JS bundler: publish it under `public/js/` and include the public URL when adding it. Do not link directly to `assets/`.
+- Keep theme variables and genuinely shared styles in global CSS. A view-owned `<style>` block is a last resort for things utilities cannot do (keyframes, third-party markup).
+- Shared JavaScript lives in `public/js/script.js` (the starter has no JS bundler); include it with `base_url('js/script.js')`. Do not link directly to `assets/`.
 - Small page-specific scripts belong in the owning view. Initialize repeated components safely and avoid duplicate listeners or global variable collisions.
-- Prefer vanilla JavaScript/CSS, and do not add an animation library merely because the template could support one.
+- Prefer vanilla JavaScript, and do not add an animation library merely because the template could support one.
 
 ## Semantic and accessible UI
 

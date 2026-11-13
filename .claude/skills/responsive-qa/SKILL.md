@@ -42,9 +42,9 @@ Confirm the actual URL before capture. Run `pnpm dev` while editing and `pnpm bu
 | Route | Sources / checks |
 | --- | --- |
 | Affected public route | Its controller, page view, actual included sections, and assets |
-| `/dev` | `sections/dev-pages/directory.php`, configured links, recorded dates |
-| `/dev-design-components` | `sections/dev-design-components/gallery.php`, real component variants |
-| `/dev-progress/<slug>` | `sections/dev-progress/overview.php`, counts, assembly, references |
+| `/dev` | `dev/sections/directory.php`, configured links, recorded dates |
+| `/dev-design-components` | `dev/sections/gallery.php`, real component variants |
+| `/dev-progress/<slug>` | `dev/sections/overview.php`, counts, assembly, references |
 | `/dev-landing-progress` | Alias to the `home` sheet |
 
 `app/Config/Development.php` owns inventory and tracking. The number of sections is variable. Read real public sources before accepting an assembly claim. Unknown dates remain unset; QA must not change milestones.

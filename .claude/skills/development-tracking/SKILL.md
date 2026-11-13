@@ -16,7 +16,7 @@ Repository paths are relative to the project root. Development pages support imp
 | `/dev-progress/<slug>` | Configured page's section readiness, assembly, and references |
 | `/dev-landing-progress` | Shortcut to the `home` build sheet |
 
-Data lives in `app/Config/Development.php`. Views live under `app/Views/pages/dev-*`, `app/Views/sections/dev-*`, and `app/Views/partials/dev/`. Read `docs/development.md` for the configuration schema and `docs/components.md` before duplicating UI.
+Data lives in `app/Config/Development.php`. Views live under `app/Views/dev/{pages,sections,partials}/`. Read `docs/development.md` for the configuration schema and `docs/components.md` before duplicating UI.
 
 ## Register pages and gallery entries
 

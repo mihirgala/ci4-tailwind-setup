@@ -1,12 +1,20 @@
 <?php
-// Lints every PHP file under app/. Usage: php scripts/lint.php
+// Lints PHP under app/, scripts/, tests/ plus public/index.php. Usage: php scripts/lint.php
 $failed = 0;
-$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(dirname(__DIR__) . '/app', FilesystemIterator::SKIP_DOTS));
-foreach ($it as $file) {
-    if ($file->getExtension() !== 'php') {
+$root = dirname(__DIR__);
+$files = [$root . '/public/index.php'];
+foreach (['app', 'scripts', 'tests'] as $dir) {
+    if (! is_dir($root . '/' . $dir)) {
         continue;
     }
-    exec('php -l ' . escapeshellarg($file->getPathname()) . ' 2>&1', $out, $code);
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root . '/' . $dir, FilesystemIterator::SKIP_DOTS)) as $file) {
+        if ($file->getExtension() === 'php') {
+            $files[] = $file->getPathname();
+        }
+    }
+}
+foreach ($files as $path) {
+    exec('php -l ' . escapeshellarg($path) . ' 2>&1', $out, $code);
     if ($code !== 0) {
         $failed++;
         echo implode("\n", $out), "\n";

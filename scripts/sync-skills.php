@@ -2,7 +2,7 @@
 // Mirrors the canonical skills in .agents/skills into each agent-specific folder.
 // Edit skills ONLY in .agents/skills, then run: pnpm skills:sync (the pre-commit hook also runs it).
 // To support another agent, add its skills folder to $targets.
-// Safe by design: never touches a target unless the source is readable, and exits 1 on any failure.
+// Safe by design: copies into a temp folder and swaps it in only after every file copied; exits 1 on failure.
 $root = dirname(__DIR__);
 $source = $root . '/.agents/skills';
 $targets = ['.claude/skills'];
@@ -40,16 +40,23 @@ if ($entries === []) {
 
 foreach ($targets as $target) {
     $dest = $root . '/' . $target;
-    rrmdir($dest);
-    is_dir($dest) || mkdir($dest, 0777, true) || fail("could not create {$dest}");
+    $tmp = $dest . '.tmp';
+
+    // Build the new mirror beside the old one; only swap it in once every file copied.
+    rrmdir($tmp);
+    mkdir($tmp, 0777, true) || fail("could not create {$tmp}");
     foreach ($entries as [$isDir, $from, $rel]) {
-        $to = $dest . '/' . $rel;
+        $to = $tmp . '/' . $rel;
         if ($isDir) {
-            is_dir($to) || mkdir($to, 0777, true) || fail("could not create {$to}");
+            is_dir($to) || mkdir($to, 0777, true) || (rrmdir($tmp) ?: fail("could not create {$to}"));
         } else {
             is_dir(dirname($to)) || mkdir(dirname($to), 0777, true) || fail('could not create ' . dirname($to));
-            copy($from, $to) || fail("could not copy {$from}");
+            copy($from, $to) || (rrmdir($tmp) ?: fail("could not copy {$from}; {$target} left unchanged"));
         }
     }
-    echo "Synced to {$target}\n";
+
+    rrmdir($dest);
+    rename($tmp, $dest) || fail("could not move {$tmp} to {$dest}");
+    echo "Synced to {$target}
+";
 }

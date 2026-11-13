@@ -8,8 +8,8 @@ $classes = 'inline-flex items-center justify-center rounded-lg border px-4 py-2.
 $disabled = $disabled ?? false;
 $text = $text ?? 'Continue';
 $buttonType = in_array($buttonType ?? 'button', ['button', 'submit', 'reset'], true) ? ($buttonType ?? 'button') : 'button';
-// External links: pass 'external' => true with an absolute http(s) URL. Anything else falls back to an internal route.
-$external = ($external ?? false) && isset($href) && preg_match('#^https?://#i', $href) === 1;
+// External links: pass 'external' => true with an absolute http(s), mailto:, or tel: URL. Anything else is treated as an internal route.
+$external = ($external ?? false) && isset($href) && preg_match('#^(https?://|mailto:|tel:)#i', $href) === 1;
 ?>
 <?php if (isset($href) && ! $disabled): ?>
     <a href="<?= esc($external ? $href : site_url($href), 'attr') ?>"<?= $external ? ' rel="noopener noreferrer"' : '' ?> class="<?= esc($classes, 'attr') ?>"><?= esc($text) ?></a>

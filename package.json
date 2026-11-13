@@ -10,7 +10,7 @@
     "php": "php spark serve",
     "lint": "php scripts/lint.php",
     "check": "php scripts/lint.php && pnpm build",
-    "prepare": "node -e \"require('fs').existsSync('.git')&&require('child_process').execSync('git config core.hooksPath .githooks')\"",
+    "prepare": "node scripts/setup-hooks.js",
     "skills:sync": "php scripts/sync-skills.php"
   },
   "keywords": [

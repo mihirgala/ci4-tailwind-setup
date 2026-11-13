@@ -10,11 +10,11 @@ Components live in `app/Views/components/` and render through `component()` from
 ]) ?>
 ```
 
-Text and attribute values are escaped. These starter components do not accept raw HTML props. Match view path casing exactly, especially on Linux.
+`component()` passes props through unescaped (`setData($data, 'raw')`); each component view must escape what it prints. The starter components do (`esc()` for text, `esc(..., 'attr')` for attributes) and do not accept raw HTML props. Match view path casing exactly, especially on Linux.
 
 ## Layout wrapper (no component)
 
-`component()` escapes every prop, so it cannot wrap child markup. For section layout use the shared utilities directly:
+`component()` renders a view from a props array (not a template with child markup), so it cannot wrap child content. For section layout use the shared utilities directly:
 
 ```php
 <section class="px-gutter py-16">      <!-- outer gutter -->

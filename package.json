@@ -9,7 +9,7 @@
     "build": "tailwindcss -i ./assets/css/input.css -o ./public/css/output.css --minify",
     "php": "php spark serve",
     "lint": "php scripts/lint.php",
-    "check": "php scripts/lint.php && pnpm build",
+    "check": "php scripts/lint.php && tailwindcss -i ./assets/css/input.css -o ./public/css/output.css --minify",
     "prepare": "node scripts/setup-hooks.js",
     "skills:sync": "php scripts/sync-skills.php"
   },

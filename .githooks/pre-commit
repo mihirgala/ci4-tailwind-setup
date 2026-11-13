@@ -1,6 +1,16 @@
 #!/bin/sh
+# Build helper: works with pnpm or plain npm.
+build_css() {
+    if command -v pnpm >/dev/null 2>&1; then pnpm build; else npm run build; fi
+}
+
 # 1) Mirror canonical skills (.agents/skills) to agent-specific folders.
+#    The sync reads the working tree, so refuse if any skill change is unstaged or untracked.
 if git diff --cached --name-only | grep -q '^\.agents/skills/'; then
+    if [ -n "$(git diff --name-only -- .agents/skills)" ] || [ -n "$(git ls-files -o --exclude-standard -- .agents/skills)" ]; then
+        echo "pre-commit: unstaged or untracked changes in .agents/skills. Stage or stash them first so the .claude mirror matches this commit."
+        exit 1
+    fi
     php scripts/sync-skills.php >/dev/null || { echo "pre-commit: skills sync failed; commit aborted"; exit 1; }
     git add -A .claude/skills
 fi
@@ -16,6 +26,6 @@ if git diff --cached --name-only | grep -qE "$TW_PATHS"; then
         echo "pre-commit: unstaged app/CSS/docs changes found. Stage or stash them first so output.css matches this commit."
         exit 1
     fi
-    pnpm build >/dev/null 2>&1 || { echo "pre-commit: pnpm build failed; commit aborted"; exit 1; }
+    build_css >/dev/null 2>&1 || { echo "pre-commit: CSS build failed; commit aborted"; exit 1; }
     git add public/css/output.css
 fi

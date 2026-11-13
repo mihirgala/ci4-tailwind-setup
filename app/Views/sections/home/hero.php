@@ -2,10 +2,12 @@
 // Example section: outer gutter on the wrapper, centered width on the inner container.
 // TODO(clone): replace the docs link with your project's own URL.
 $docsUrl = 'https://github.com/mihirgala/ci4-tailwind-setup';
-$actions = [
-    ['text' => 'Open development workspace', 'href' => '/dev', 'variant' => 'primary'],
-    ['text' => 'Read the docs', 'href' => $docsUrl, 'variant' => 'outline', 'external' => true],
-];
+$actions = [];
+if (ENVIRONMENT === 'development') {
+    // /dev routes exist only in development, so only offer the link there.
+    $actions[] = ['text' => 'Open development workspace', 'href' => '/dev', 'variant' => 'primary'];
+}
+$actions[] = ['text' => 'Read the docs', 'href' => $docsUrl, 'variant' => 'outline', 'external' => true];
 ?>
 <section aria-labelledby="hero-heading" class="px-gutter py-16 sm:py-24">
     <div class="container-page flex flex-col items-start gap-8">

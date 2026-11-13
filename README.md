@@ -7,14 +7,14 @@ A reusable **CodeIgniter 4 / PHP 8.2+ / Tailwind CSS 4** starter with modular PH
 ```sh
 git clone https://github.com/mihirgala/ci4-tailwind-setup.git
 cd ci4-tailwind-setup
-composer install
 pnpm install
+composer install   # optional: only needed for dev tools (phpunit, php-cs-fixer); the framework is vendored in system/
 ```
 
 Create `.env` (skips if one exists):
 
 ```sh
-pnpm setup
+pnpm run setup
 ```
 
 Or copy it manually:

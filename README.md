@@ -94,7 +94,11 @@ Compose pages from sections and partials; render repeated markup from PHP arrays
 - Development tracking and recorded milestones.
 - Responsive QA, interactions, and build-sheet verification.
 
-Skills are authored in `.agents/skills/` (Codex, OpenCode and others) and mirrored to `.claude/skills/` for Claude Code by `pnpm skills:sync`. `CLAUDE.md` and `GEMINI.md` import `AGENTS.md` because those tools do not read it themselves. Restart your agent after adding or editing skills. All guidance is generic and can be adapted to confirmed requirements in projects created from this template.
+Skills are authored in `.agents/skills/` (Codex, OpenCode, Antigravity and others) and mirrored to `.claude/skills/` for Claude Code by `pnpm skills:sync`. `CLAUDE.md` and `GEMINI.md` import `AGENTS.md` because those tools do not read it themselves. Restart your agent after adding or editing skills. All guidance is generic and can be adapted to confirmed requirements in projects created from this template.
+
+## Vendored framework
+
+`system/` is the CodeIgniter 4 framework (currently 4.7.2), committed on purpose so a fresh clone runs without `composer install`. `composer update` does **not** upgrade it. To upgrade: download the new CodeIgniter 4 release, replace `system/` with its `system/` folder, review the release's upgrade notes for `app/Config/` changes, then run `pnpm check` and load `/` and `/dev`.
 
 ## Build and verification
 

@@ -3,7 +3,7 @@
     <p class="mt-3 text-sm leading-7 text-slate-600"><?= esc($text ?? 'Supporting content.') ?></p>
     <?php if (isset($href)): ?>
         <div class="mt-6">
-            <?= component('Components/ui/button', ['href' => $href, 'text' => $actionText ?? 'Learn more', 'variant' => 'outline']) ?>
+            <?= component('components/ui/button', ['href' => $href, 'text' => $actionText ?? 'Learn more', 'variant' => 'outline']) ?>
         </div>
     <?php endif; ?>
 </article>

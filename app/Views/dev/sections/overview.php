@@ -9,7 +9,7 @@ $completion = $total > 0 ? round($ready / $total * 100) : 0;
             <p class="font-mono text-xs uppercase tracking-widest text-blue-700">Page build sheet</p>
             <h1 id="progress-title" class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl"><?= esc($page['name']) ?> progress</h1>
             <p class="mt-4 max-w-2xl text-sm leading-7 text-slate-600">Track available components and assets separately from sections assembled on the public page.</p>
-            <div class="mt-5"><?= component('Components/ui/button', ['href' => $page['path'], 'text' => 'Open ' . $page['name'], 'variant' => 'outline']) ?></div>
+            <div class="mt-5"><?= component('components/ui/button', ['href' => $page['path'], 'text' => 'Open ' . $page['name'], 'variant' => 'outline']) ?></div>
 
             <div class="mt-8 grid gap-5 sm:grid-cols-2">
                 <div class="rounded-xl border border-slate-200 bg-white p-6">
@@ -33,7 +33,7 @@ $completion = $total > 0 ? round($ready / $total * 100) : 0;
 
         <section class="mt-8 rounded-xl border border-slate-200 bg-white p-6" aria-labelledby="page-references-title">
             <h2 id="page-references-title" class="text-lg font-semibold">Page design references</h2>
-            <div class="mt-4"><?= component('partials/dev/references', ['references' => $page['figma'] ?? []]) ?></div>
+            <div class="mt-4"><?= component('dev/partials/references', ['references' => $page['figma'] ?? []]) ?></div>
         </section>
 
         <?php if ($development->sharedElements !== []): ?>
@@ -46,7 +46,7 @@ $completion = $total > 0 ? round($ready / $total * 100) : 0;
                             <h3 class="font-semibold"><?= esc($element['label']) ?></h3>
                             <p class="mt-2 text-sm leading-7 text-slate-600"><?= esc($element['description']) ?></p>
                             <p class="mt-3 break-all font-mono text-xs text-slate-500"><?= esc($element['source']) ?></p>
-                            <div class="mt-4"><?= component('partials/dev/references', ['references' => $element['figma'] ?? []]) ?></div>
+                            <div class="mt-4"><?= component('dev/partials/references', ['references' => $element['figma'] ?? []]) ?></div>
                         </article>
                     <?php endforeach; ?>
                 </div>
@@ -84,7 +84,7 @@ $completion = $total > 0 ? round($ready / $total * 100) : 0;
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                        <div class="mt-5 border-t border-slate-100 pt-4"><?= component('partials/dev/references', ['references' => $section['figma'] ?? []]) ?></div>
+                        <div class="mt-5 border-t border-slate-100 pt-4"><?= component('dev/partials/references', ['references' => $section['figma'] ?? []]) ?></div>
                     </article>
                 <?php endforeach; ?>
             </div>

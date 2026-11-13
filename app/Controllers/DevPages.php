@@ -11,14 +11,14 @@ class DevPages extends BaseController
     {
         $this->requireDevelopment();
 
-        return view('pages/dev-pages', $this->viewData('Page directory', 'directory'));
+        return view('dev/pages/directory', $this->viewData('Page directory', 'directory'));
     }
 
     public function components(): string
     {
         $this->requireDevelopment();
 
-        return view('pages/dev-design-components', $this->viewData('Component gallery', 'components'));
+        return view('dev/pages/components', $this->viewData('Component gallery', 'components'));
     }
 
     public function progress(string $slug): string
@@ -42,7 +42,7 @@ class DevPages extends BaseController
             $assembled += (int) $section['assembled'];
         }
 
-        return view('pages/dev-progress', array_merge($data, [
+        return view('dev/pages/progress', array_merge($data, [
             'title' => $page['name'] . ' progress',
             'page' => $page,
             'ready' => $ready,

@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('navigation') ?>
-<?= $this->include('partials/dev/navigation') ?>
+<?= $this->include('dev/partials/navigation') ?>
 <?= $this->endSection() ?>
 <?= $this->section('content') ?>
-<?= $this->include('sections/dev-design-components/gallery') ?>
+<?= $this->include('dev/sections/gallery') ?>
 <?= $this->endSection() ?>

@@ -49,7 +49,7 @@ class Development extends BaseConfig
     public array $gallery = [
         [
             'name' => 'Buttons',
-            'view' => 'Components/ui/button',
+            'view' => 'components/ui/button',
             'description' => 'Navigation links and action buttons, including disabled states.',
             'examples' => [
                 ['label' => 'Primary link', 'props' => ['text' => 'Open home', 'href' => '/']],
@@ -60,7 +60,7 @@ class Development extends BaseConfig
         ],
         [
             'name' => 'Headings',
-            'view' => 'Components/ui/title',
+            'view' => 'components/ui/title',
             'description' => 'Semantic headings with an optional supporting description.',
             'examples' => [
                 ['label' => 'Heading', 'props' => ['text' => 'Section heading', 'tag' => 'h3']],
@@ -69,7 +69,7 @@ class Development extends BaseConfig
         ],
         [
             'name' => 'Cards',
-            'view' => 'Components/ui/card',
+            'view' => 'components/ui/card',
             'description' => 'Content-sized cards with an optional navigation action.',
             'examples' => [
                 ['label' => 'Content', 'props' => ['title' => 'Content card', 'text' => 'Replace this example with content from your project.']],

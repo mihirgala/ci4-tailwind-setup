@@ -7,7 +7,7 @@
                 <p class="mt-4 max-w-xl text-sm leading-7 text-slate-600">Open a public page, inspect reusable components, or review the work still needed for each section.</p>
             </div>
             <div class="text-sm">
-                <?= component('partials/dev/milestones', ['milestones' => ['Project started' => $development->projectStartedAt]]) ?>
+                <?= component('dev/partials/milestones', ['milestones' => ['Project started' => $development->projectStartedAt]]) ?>
             </div>
         </header>
 
@@ -16,7 +16,7 @@
                 <h2 class="font-semibold text-blue-950">Component gallery</h2>
                 <p class="mt-1 text-sm leading-6 text-blue-800">Check existing UI and variants before building another component.</p>
             </div>
-            <div class="mt-4 shrink-0 sm:mt-0"><?= component('Components/ui/button', ['href' => '/dev-design-components', 'text' => 'Open gallery']) ?></div>
+            <div class="mt-4 shrink-0 sm:mt-0"><?= component('components/ui/button', ['href' => '/dev-design-components', 'text' => 'Open gallery']) ?></div>
         </div>
 
         <?php if ($development->pages === []): ?>
@@ -34,15 +34,15 @@
                         </div>
                         <p class="mt-3 text-sm leading-7 text-slate-600"><?= esc($entry['description']) ?></p>
                         <div class="my-6 border-y border-slate-100 py-5">
-                            <?= component('partials/dev/milestones', ['milestones' => [
+                            <?= component('dev/partials/milestones', ['milestones' => [
                                 'Design received' => $entry['designReceivedAt'] ?? null,
                                 'Development started' => $entry['developmentStartedAt'] ?? null,
                                 'Design updated' => $entry['designUpdatedAt'] ?? null,
                             ]]) ?>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <?= component('Components/ui/button', ['href' => $entry['path'], 'text' => 'Open ' . $entry['name']]) ?>
-                            <?= component('Components/ui/button', ['href' => '/dev-progress/' . $slug, 'text' => $entry['name'] . ' build sheet', 'variant' => 'outline']) ?>
+                            <?= component('components/ui/button', ['href' => $entry['path'], 'text' => 'Open ' . $entry['name']]) ?>
+                            <?= component('components/ui/button', ['href' => '/dev-progress/' . $slug, 'text' => $entry['name'] . ' build sheet', 'variant' => 'outline']) ?>
                         </div>
                     </article>
                 <?php endforeach; ?>

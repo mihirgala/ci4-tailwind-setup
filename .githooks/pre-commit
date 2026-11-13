@@ -1,0 +1,31 @@
+#!/bin/sh
+# Build helper: works with pnpm or plain npm.
+build_css() {
+    if command -v pnpm >/dev/null 2>&1; then pnpm build; else npm run build; fi
+}
+
+# 1) Mirror canonical skills (.agents/skills) to agent-specific folders.
+#    The sync reads the working tree, so refuse if any skill change is unstaged or untracked.
+if git diff --cached --name-only | grep -q '^\.agents/skills/'; then
+    if [ -n "$(git diff --name-only -- .agents/skills)" ] || [ -n "$(git ls-files -o --exclude-standard -- .agents/skills)" ]; then
+        echo "pre-commit: unstaged or untracked changes in .agents/skills. Stage or stash them first so the .claude mirror matches this commit."
+        exit 1
+    fi
+    php scripts/sync-skills.php >/dev/null || { echo "pre-commit: skills sync failed; commit aborted"; exit 1; }
+    git add -A .claude/skills
+fi
+
+# 2) Rebuild CSS and stage it when Tailwind inputs are part of this commit.
+#    Tailwind 4 scans every non-ignored file, so the trigger covers app/, assets/css/,
+#    docs/ and the agent folders, not just views.
+#    Refuses to run with unstaged changes in those paths, because the build reads the whole
+#    working tree and would put CSS for unstaged markup into this commit.
+TW_PATHS='^(app/|assets/css/|docs/|\.agents/|\.claude/|[A-Za-z0-9_-]+\.md$)'
+if git diff --cached --name-only | grep -qE "$TW_PATHS"; then
+    if git diff --name-only | grep -qE "$TW_PATHS"; then
+        echo "pre-commit: unstaged app/CSS/docs changes found. Stage or stash them first so output.css matches this commit."
+        exit 1
+    fi
+    build_css >/dev/null 2>&1 || { echo "pre-commit: CSS build failed; commit aborted"; exit 1; }
+    git add public/css/output.css
+fi

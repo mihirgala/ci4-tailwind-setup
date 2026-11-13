@@ -7,11 +7,17 @@ A reusable **CodeIgniter 4 / PHP 8.2+ / Tailwind CSS 4** starter with modular PH
 ```sh
 git clone https://github.com/mihirgala/ci4-tailwind-setup.git
 cd ci4-tailwind-setup
-composer install
 pnpm install
+composer install   # optional: only needed for dev tools (phpunit, php-cs-fixer); the framework is vendored in system/
 ```
 
-Copy `.env.example` to `.env` if one does not already exist:
+Create `.env` (skips if one exists):
+
+```sh
+pnpm run setup
+```
+
+Or copy it manually:
 
 ```powershell
 Copy-Item .env.example .env
@@ -49,7 +55,9 @@ Development routes are registered only in development and guarded in their contr
 
 ```text
 .
-├── .opencode/skills/          # Five project-local agent skills
+├── .agents/skills/            # Five agent skills (canonical source)
+├── .claude/skills/            # Generated mirror for Claude Code (pnpm skills:sync)
+├── CLAUDE.md, GEMINI.md      # Import AGENTS.md for tools that read their own file
 ├── AGENTS.md                 # Agent conventions and skill selection
 ├── app/
 │   ├── Config/Development.php # Development inventory and tracking
@@ -58,11 +66,15 @@ Development routes are registered only in development and guarded in their contr
 │   └── Views/
 │       ├── layouts/main.php  # Document structure and global includes
 │       ├── pages/            # Page composition
-│       ├── sections/         # Page-level visual blocks
-│       ├── partials/         # Shared UI and development partials
-│       └── Components/ui/    # Prop-driven buttons, headings, cards
-├── assets/css/input.css      # Tailwind source
-├── public/css/output.css     # Generated CSS
+│       ├── sections/<page>/  # Page-level visual blocks (home/hero.php example)
+│       ├── partials/         # Shared navbar and footer
+│       ├── components/ui/    # Prop-driven buttons, headings, cards
+│       └── dev/              # Development workspace (delete when not needed)
+├── assets/css/input.css      # Tailwind source and theme tokens
+├── public/
+│   ├── css/output.css        # Generated CSS (committed; server has no Node)
+│   ├── js/                   # Shared JavaScript
+│   └── images/               # Image assets
 ├── docs/
 │   ├── components.md         # Props, reuse, gallery examples
 │   └── development.md        # Workspace setup and tracking schema
@@ -70,7 +82,7 @@ Development routes are registered only in development and guarded in their contr
 └── composer.json
 ```
 
-Compose pages from sections and partials; render repeated markup from PHP arrays. Reusable components use `component('Components/…', $props)` with isolated data. Shared styles belong in Tailwind source; view-specific CSS/JS stays with its owning view. If adding global JavaScript, publish the source under `public/` before including it; the starter has no JS bundler.
+Compose pages from sections and partials; render repeated markup from PHP arrays. Reusable components use `component('components/…', $props)` with isolated data. Shared styles belong in Tailwind source; view-specific CSS/JS stays with its owning view. Global JavaScript goes in `public/js/script.js` (no bundler); images in `public/images/`.
 
 ## Agent skills
 
@@ -82,7 +94,11 @@ Compose pages from sections and partials; render repeated markup from PHP arrays
 - Development tracking and recorded milestones.
 - Responsive QA, interactions, and build-sheet verification.
 
-Skills are discovered from `.opencode/skills/`. Restart OpenCode after adding or editing skills. All guidance is generic and can be adapted to confirmed requirements in projects created from this template.
+Skills are authored in `.agents/skills/` (Codex, OpenCode, Antigravity and others) and mirrored to `.claude/skills/` for Claude Code by `pnpm skills:sync`. `CLAUDE.md` and `GEMINI.md` import `AGENTS.md` because those tools do not read it themselves. Restart your agent after adding or editing skills. All guidance is generic and can be adapted to confirmed requirements in projects created from this template.
+
+## Vendored framework
+
+`system/` is the CodeIgniter 4 framework (currently 4.7.2), committed on purpose so a fresh clone runs without `composer install`. `composer update` does **not** upgrade it. To upgrade: download the new CodeIgniter 4 release, replace `system/` with its `system/` folder, review the release's upgrade notes for `app/Config/` changes, then run `pnpm check` and load `/` and `/dev`.
 
 ## Build and verification
 

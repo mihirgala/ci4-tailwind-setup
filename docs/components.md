@@ -1,30 +1,41 @@
 # Reusable components
 
-Components live in `app/Views/Components/` and render through `component()` from `app/Helpers/component_helper.php`. `BaseController` loads the helper. Each call uses a fresh renderer: page variables do not leak into props and props do not overwrite page/layout variables.
+Components live in `app/Views/components/` and render through `component()` from `app/Helpers/component_helper.php`. `BaseController` loads the helper. Each call uses a fresh renderer: page variables do not leak into props and props do not overwrite page/layout variables.
 
 ```php
-<?= component('Components/ui/button', [
+<?= component('components/ui/button', [
     'text' => 'Open home',
     'href' => '/',
     'variant' => 'outline',
 ]) ?>
 ```
 
-Text and attribute values are escaped. These starter components do not accept raw HTML props. Match view path casing exactly, especially on Linux.
+`component()` passes props through unescaped (`setData($data, 'raw')`); each component view must escape what it prints. The starter components do (`esc()` for text, `esc(..., 'attr')` for attributes) and do not accept raw HTML props. Match view path casing exactly, especially on Linux.
 
-## Button — `Components/ui/button`
+## Layout wrapper (no component)
+
+`component()` renders a view from a props array (not a template with child markup), so it cannot wrap child content. For section layout use the shared utilities directly:
+
+```php
+<section class="px-gutter py-16">      <!-- outer gutter -->
+    <div class="container-page">…</div> <!-- inner centered max width -->
+</section>
+```
+
+## Button — `components/ui/button`
 
 | Prop | Default | Meaning |
 | --- | --- | --- |
 | `text` | `Continue` | Visible text |
 | `variant` | `primary` | `primary`, `secondary`, or `outline`; unknown variants fall back to primary |
-| `href` | Unset | Internal route passed to `site_url()`; renders a link when enabled |
+| `href` | Unset | Internal route passed to `site_url()` (or an absolute URL with `external`); renders a link when enabled |
+| `external` | `false` | With an absolute `http(s)`, `mailto:` or `tel:` `href`, renders it as-is with `rel="noopener noreferrer"`; otherwise `href` goes through `site_url()` |
 | `buttonType` | `button` | `button`, `submit`, or `reset`; only applies to button elements |
 | `disabled` | `false` | Renders a native disabled button, including when a destination is supplied |
 
 Buttons without `href` represent actions. Their caller owns the action handler; the gallery demonstrates styling, not application behavior. Use submit/reset types only inside the appropriate form. For external navigation, add a dedicated, documented external-link component rather than passing external URLs to this internal-route prop.
 
-## Heading — `Components/ui/title`
+## Heading — `components/ui/title`
 
 | Prop | Default | Meaning |
 | --- | --- | --- |
@@ -35,7 +46,7 @@ Buttons without `href` represent actions. Their caller owns the action handler; 
 
 ```php
 <section aria-labelledby="features-title">
-    <?= component('Components/ui/title', [
+    <?= component('components/ui/title', [
         'id' => 'features-title',
         'text' => 'Features',
         'description' => 'Supporting information for this section.',
@@ -43,7 +54,7 @@ Buttons without `href` represent actions. Their caller owns the action handler; 
 </section>
 ```
 
-## Card — `Components/ui/card`
+## Card — `components/ui/card`
 
 | Prop | Default | Meaning |
 | --- | --- | --- |
@@ -57,13 +68,13 @@ Cards size naturally to content. Their caller owns grid layout. Use them below a
 ## Add a component
 
 1. Inspect existing components and `/dev-design-components` first.
-2. Create a prop-driven view under `app/Views/Components/` with safe defaults, escaping, and semantic markup.
+2. Create a prop-driven view under `app/Views/components/` with safe defaults, escaping, and semantic markup.
 3. Add a gallery group to `app/Config/Development.php`:
 
 ```php
 [
     'name' => 'Feature card',
-    'view' => 'Components/ui/card',
+    'view' => 'components/ui/card',
     'description' => 'Shared feature presentation.',
     'examples' => [
         [

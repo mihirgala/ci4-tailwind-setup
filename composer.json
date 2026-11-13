@@ -1,14 +1,9 @@
 {
-    "name": "codeigniter4/framework",
-    "description": "The CodeIgniter framework v4",
+    "name": "mihirgala/ci4-tailwind-setup",
+    "description": "CodeIgniter 4 + Tailwind CSS 4 starter with modular PHP views and a development workspace.",
     "license": "MIT",
     "type": "project",
-    "homepage": "https://codeigniter.com",
-    "support": {
-        "forum": "https://forum.codeigniter.com/",
-        "source": "https://github.com/codeigniter4/CodeIgniter4",
-        "slack": "https://codeigniterchat.slack.com"
-    },
+    "homepage": "https://github.com/mihirgala/ci4-tailwind-setup",
     "require": {
         "php": "^8.2",
         "ext-intl": "*",

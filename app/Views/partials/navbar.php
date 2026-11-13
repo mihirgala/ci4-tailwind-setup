@@ -1,9 +1,9 @@
 <?php
-$brand = $appName ?? 'CI4 Starter';
+$brand = $appName;
 $links = [
     ['label' => 'Home', 'path' => '/'],
 ];
-$current = trim(service('request')->getUri()->getPath(), '/');
+$current = trim(uri_string(), '/');
 ?>
 <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:p-3">Skip to content</a>
 <header class="border-b border-slate-200 bg-white px-gutter">

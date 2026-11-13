@@ -1,8 +1,10 @@
 <?php
 // Example section: outer gutter on the wrapper, centered width on the inner container.
+// TODO(clone): replace the docs link with your project's own URL.
+$docsUrl = 'https://github.com/mihirgala/ci4-tailwind-setup';
 $actions = [
     ['text' => 'Open development workspace', 'href' => '/dev', 'variant' => 'primary'],
-    ['text' => 'Read the docs', 'href' => 'https://github.com/mihirgala/ci4-tailwind-setup', 'variant' => 'outline', 'external' => true],
+    ['text' => 'Read the docs', 'href' => $docsUrl, 'variant' => 'outline', 'external' => true],
 ];
 ?>
 <section aria-labelledby="hero-heading" class="px-gutter py-16 sm:py-24">
@@ -15,11 +17,7 @@ $actions = [
         ]) ?>
         <div class="flex flex-wrap gap-3">
             <?php foreach ($actions as $action): ?>
-                <?php if (! empty($action['external'])): ?>
-                    <a href="<?= esc($action['href'], 'attr') ?>" rel="noopener" class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition-colors hover:border-brand-700 hover:text-brand-700"><?= esc($action['text']) ?></a>
-                <?php else: ?>
-                    <?= component('components/ui/button', $action) ?>
-                <?php endif; ?>
+                <?= component('components/ui/button', $action) ?>
             <?php endforeach; ?>
         </div>
     </div>

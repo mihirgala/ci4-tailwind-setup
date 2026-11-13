@@ -2,19 +2,19 @@
     <div class="mx-auto max-w-6xl">
         <header class="flex flex-wrap items-end justify-between gap-6 border-b border-slate-200 pb-8">
             <div>
-                <p class="font-mono text-xs uppercase tracking-widest text-blue-700">Implementation workspace</p>
+                <p class="font-mono text-xs uppercase tracking-widest text-brand-700">Implementation workspace</p>
                 <h1 id="directory-title" class="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Page directory</h1>
-                <p class="mt-4 max-w-xl text-sm leading-7 text-slate-600">Open a public page, inspect reusable components, or review the work still needed for each section.</p>
+                <p class="mt-4 max-w-xl text-sm leading-7 text-muted">Open a public page, inspect reusable components, or review the work still needed for each section.</p>
             </div>
             <div class="text-sm">
                 <?= component('dev/partials/milestones', ['milestones' => ['Project started' => $development->projectStartedAt]]) ?>
             </div>
         </header>
 
-        <div class="mt-8 rounded-xl border border-blue-200 bg-blue-50 p-5 sm:flex sm:items-center sm:justify-between sm:gap-6">
+        <div class="mt-8 rounded-xl border border-brand-200 bg-brand-50 p-5 sm:flex sm:items-center sm:justify-between sm:gap-6">
             <div>
-                <h2 class="font-semibold text-blue-950">Component gallery</h2>
-                <p class="mt-1 text-sm leading-6 text-blue-800">Check existing UI and variants before building another component.</p>
+                <h2 class="font-semibold text-brand-950">Component gallery</h2>
+                <p class="mt-1 text-sm leading-6 text-brand-800">Check existing UI and variants before building another component.</p>
             </div>
             <div class="mt-4 shrink-0 sm:mt-0"><?= component('components/ui/button', ['href' => '/dev-design-components', 'text' => 'Open gallery']) ?></div>
         </div>
@@ -22,7 +22,7 @@
         <?php if ($development->pages === []): ?>
             <div class="mt-8 rounded-xl border border-dashed border-slate-300 p-8">
                 <h2 class="text-lg font-semibold">No pages registered</h2>
-                <p class="mt-2 text-sm leading-7 text-slate-600">Add a page to <code class="break-all">app/Config/Development.php</code> to create its directory entry and build sheet.</p>
+                <p class="mt-2 text-sm leading-7 text-muted">Add a page to <code class="break-all">app/Config/Development.php</code> to create its directory entry and build sheet.</p>
             </div>
         <?php else: ?>
             <div class="mt-8 grid items-start gap-6 md:grid-cols-2">
@@ -32,7 +32,7 @@
                             <h2 class="text-xl font-semibold tracking-tight"><?= esc($entry['name']) ?></h2>
                             <span class="break-all font-mono text-xs text-slate-500"><?= esc($entry['path']) ?></span>
                         </div>
-                        <p class="mt-3 text-sm leading-7 text-slate-600"><?= esc($entry['description']) ?></p>
+                        <p class="mt-3 text-sm leading-7 text-muted"><?= esc($entry['description']) ?></p>
                         <div class="my-6 border-y border-slate-100 py-5">
                             <?= component('dev/partials/milestones', ['milestones' => [
                                 'Design received' => $entry['designReceivedAt'] ?? null,

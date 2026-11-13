@@ -28,7 +28,8 @@ Text and attribute values are escaped. These starter components do not accept ra
 | --- | --- | --- |
 | `text` | `Continue` | Visible text |
 | `variant` | `primary` | `primary`, `secondary`, or `outline`; unknown variants fall back to primary |
-| `href` | Unset | Internal route passed to `site_url()`; renders a link when enabled |
+| `href` | Unset | Internal route passed to `site_url()` (or an absolute URL with `external`); renders a link when enabled |
+| `external` | `false` | With an absolute `http(s)` `href`, renders it as-is with `rel="noopener noreferrer"`; otherwise `href` goes through `site_url()` |
 | `buttonType` | `button` | `button`, `submit`, or `reset`; only applies to button elements |
 | `disabled` | `false` | Renders a native disabled button, including when a destination is supplied |
 

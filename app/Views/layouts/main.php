@@ -1,6 +1,7 @@
 <?php
 $appName = $appName ?? 'CI4 Starter';
 $showSiteChrome = $showSiteChrome ?? true;
+$this->setVar('appName', $appName); // partials read it from shared view data
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +14,7 @@ $showSiteChrome = $showSiteChrome ?? true;
     <link rel="stylesheet" href="<?= esc(base_url('css/output.css'), 'attr') ?>">
 </head>
 
-<body class="flex min-h-svh flex-col bg-white text-slate-900">
+<body class="flex min-h-svh flex-col bg-white text-ink">
     <?php if ($showSiteChrome): ?>
     <?= $this->include('partials/navbar') ?>
     <?php endif; ?>

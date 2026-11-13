@@ -1,12 +1,18 @@
 #!/bin/sh
-# Rebuild CSS and stage it, only when Tailwind inputs changed in this commit.
-# Keeps public/css/output.css in sync without a separate "rebuild css" commit.
+# 1) Rebuild CSS and stage it when Tailwind inputs are part of this commit.
+#    Refuses to run with unstaged view/CSS changes, because the build reads the whole
+#    working tree and would put CSS for unstaged markup into this commit.
 if git diff --cached --name-only | grep -qE '^(app/Views/|assets/css/)'; then
-    pnpm build >/dev/null 2>&1 || { echo "pnpm build failed; commit aborted"; exit 1; }
+    if git diff --name-only | grep -qE '^(app/Views/|assets/css/)'; then
+        echo "pre-commit: unstaged view/CSS changes found. Stage or stash them first so output.css matches this commit."
+        exit 1
+    fi
+    pnpm build >/dev/null 2>&1 || { echo "pre-commit: pnpm build failed; commit aborted"; exit 1; }
     git add public/css/output.css
 fi
 
-# Mirror canonical skills (.agents/skills) to agent-specific folders.
+# 2) Mirror canonical skills (.agents/skills) to agent-specific folders.
 if git diff --cached --name-only | grep -q '^\.agents/skills/'; then
-    php scripts/sync-skills.php >/dev/null && git add -A .claude/skills
+    php scripts/sync-skills.php >/dev/null || { echo "pre-commit: skills sync failed; commit aborted"; exit 1; }
+    git add -A .claude/skills
 fi

@@ -1,5 +1,5 @@
 <?php
-// Lints every PHP file under app/ and tests/. Usage: php scripts/lint.php
+// Lints every PHP file under app/. Usage: php scripts/lint.php
 $failed = 0;
 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(dirname(__DIR__) . '/app', FilesystemIterator::SKIP_DOTS));
 foreach ($it as $file) {

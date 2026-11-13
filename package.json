@@ -10,7 +10,8 @@
     "php": "php spark serve",
     "lint": "php scripts/lint.php",
     "check": "php scripts/lint.php && pnpm build",
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git config core.hooksPath .githooks",
+    "skills:sync": "php scripts/sync-skills.php"
   },
   "keywords": [
     "codeigniter",

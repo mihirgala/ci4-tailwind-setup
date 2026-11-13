@@ -11,7 +11,7 @@
 
 ## Load task-specific skills
 
-Skills live in `.claude/skills/<name>/SKILL.md` (read by Claude Code and OpenCode). Load the matching skill before relevant work; if the skill tool cannot discover it, read its file directly. All repository paths in skills are relative to the project root.
+Skills live in `.agents/skills/<name>/SKILL.md` (canonical; read by Codex, OpenCode, and other agents using the `.agents` convention). `.claude/skills/` is an auto-generated mirror for Claude Code: edit only `.agents/skills/`, then run `pnpm skills:sync` (the pre-commit hook does it too). Load the matching skill before relevant work; if the skill tool cannot discover it, read its file directly. All repository paths in skills are relative to the project root.
 
 | Task | Skill |
 | --- | --- |

@@ -108,10 +108,10 @@ Dates use `YYYY-MM-DD` or `null`. Unknown dates display as **Not recorded**.
 
 ## Verify and deploy
 
-Lint changed PHP and run `pnpm build` for Tailwind source/class changes. Follow `.claude/skills/responsive-qa/SKILL.md` for layout verification. Check directory links, gallery variants, progress rows/totals, empty states, references, unknown-slug 404s, and actual public assembly.
+Lint changed PHP and run `pnpm build` for Tailwind source/class changes. Follow `.agents/skills/responsive-qa/SKILL.md` for layout verification. Check directory links, gallery variants, progress rows/totals, empty states, references, unknown-slug 404s, and actual public assembly.
 
 Deploy by `git pull` then `composer install --no-dev --optimize-autoloader` on the server (`vendor/` is gitignored; `public/css/output.css` is committed, so the server needs no Node). Then set `CI_ENVIRONMENT=production` and point the document root to `public/`. Development routes must return 404. A production environment has no development route registration; controller guards provide a second check if routing changes later.
 
 ## Agent guidance
 
-`AGENTS.md` maps tasks to five project-local skills under `.claude/skills/`. They describe view architecture, responsive implementation, Figma translation, tracking, and responsive QA. The guidance is project-neutral: customize it as a new project develops confirmed requirements. Restart OpenCode after changing skills so discovery picks up the new files.
+`AGENTS.md` maps tasks to five project-local skills under `.agents/skills/`. They describe view architecture, responsive implementation, Figma translation, tracking, and responsive QA. The guidance is project-neutral: customize it as a new project develops confirmed requirements. Restart OpenCode after changing skills so discovery picks up the new files.

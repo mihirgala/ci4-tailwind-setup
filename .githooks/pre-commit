@@ -5,3 +5,8 @@ if git diff --cached --name-only | grep -qE '^(app/Views/|assets/css/)'; then
     pnpm build >/dev/null 2>&1 || { echo "pnpm build failed; commit aborted"; exit 1; }
     git add public/css/output.css
 fi
+
+# Mirror canonical skills (.agents/skills) to agent-specific folders.
+if git diff --cached --name-only | grep -q '^\.agents/skills/'; then
+    php scripts/sync-skills.php >/dev/null && git add -A .claude/skills
+fi

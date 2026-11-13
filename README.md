@@ -55,8 +55,9 @@ Development routes are registered only in development and guarded in their contr
 
 ```text
 .
-├── .claude/skills/            # Five project-local agent skills
-├── CLAUDE.md                 # Points Claude Code at AGENTS.md
+├── .agents/skills/            # Five agent skills (canonical source)
+├── .claude/skills/            # Generated mirror for Claude Code (pnpm skills:sync)
+├── CLAUDE.md, GEMINI.md      # Import AGENTS.md for tools that read their own file
 ├── AGENTS.md                 # Agent conventions and skill selection
 ├── app/
 │   ├── Config/Development.php # Development inventory and tracking
@@ -93,7 +94,7 @@ Compose pages from sections and partials; render repeated markup from PHP arrays
 - Development tracking and recorded milestones.
 - Responsive QA, interactions, and build-sheet verification.
 
-Skills are discovered from `.claude/skills/` (Claude Code and OpenCode). `CLAUDE.md` imports `AGENTS.md` because Claude Code does not read `AGENTS.md` itself. Restart your agent after adding or editing skills. All guidance is generic and can be adapted to confirmed requirements in projects created from this template.
+Skills are authored in `.agents/skills/` (Codex, OpenCode and others) and mirrored to `.claude/skills/` for Claude Code by `pnpm skills:sync`. `CLAUDE.md` and `GEMINI.md` import `AGENTS.md` because those tools do not read it themselves. Restart your agent after adding or editing skills. All guidance is generic and can be adapted to confirmed requirements in projects created from this template.
 
 ## Build and verification
 

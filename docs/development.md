@@ -110,7 +110,7 @@ Dates use `YYYY-MM-DD` or `null`. Unknown dates display as **Not recorded**.
 
 Lint changed PHP and run `pnpm build` for Tailwind source/class changes. Follow `.agents/skills/responsive-qa/SKILL.md` for layout verification. Check directory links, gallery variants, progress rows/totals, empty states, references, unknown-slug 404s, and actual public assembly.
 
-Deploy by `git pull` then `composer install --no-dev --optimize-autoloader` on the server (`vendor/` is gitignored; `public/css/output.css` is committed, so the server needs no Node). Then set `CI_ENVIRONMENT=production` and point the document root to `public/`. Development routes must return 404. A production environment has no development route registration; controller guards provide a second check if routing changes later.
+Deploy by `git pull` then `composer install --no-dev --optimize-autoloader` on the server (`vendor/` is gitignored; `public/css/output.css` is committed, so the server needs no Node). Links are generated without `index.php` (`$indexPage = ''` in `app/Config/App.php`). Apache works out of the box via `public/.htaccess`; on nginx add `try_files $uri $uri/ /index.php$is_args$args;` or set `$indexPage` back to `'index.php'`. Then set `CI_ENVIRONMENT=production` and point the document root to `public/`. Development routes must return 404. A production environment has no development route registration; controller guards provide a second check if routing changes later.
 
 ## Agent guidance
 
